@@ -9445,8 +9445,7 @@ var OwnACar = function (_React$Component2) {
         var _this2 = _possibleConstructorReturn(this, (OwnACar.__proto__ || Object.getPrototypeOf(OwnACar)).call(this, props));
 
         _this2.state = {
-            question: 'do you own a car?'
-
+            question: ''
         };
         return _this2;
     }
@@ -9454,6 +9453,21 @@ var OwnACar = function (_React$Component2) {
     _createClass(OwnACar, [{
         key: 'render',
         value: function render() {
+            var _this3 = this;
+
+            fetch('http://localhost:3000/questions').then(function (resp) {
+                if (resp.ok) {
+                    return resp.json();
+                } else throw new Error('Błąd sieci!');
+            }).then(function (questions) {
+                console.log(questions);
+                _this3.setState({
+                    question: questions[0].guest
+                });
+            }).catch(function (err) {
+                console.log('Błąd', err);
+            });
+
             return _react2.default.createElement(
                 'form',
                 null,

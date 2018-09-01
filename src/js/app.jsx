@@ -36,11 +36,27 @@ class OwnACar extends React.Component {
     constructor (props) {
         super(props);
         this.state= {
-            question: 'do you own a car?'
-
+            question: ''
         }
     }
     render() {
+
+        fetch('http://localhost:3000/questions').then(resp => {
+            if(resp.ok) {
+                return resp.json();
+            }else
+                throw new Error ('Błąd sieci!')
+        }).then((questions)=> {
+            console.log(questions);
+            this.setState({
+                question: questions[0].guest
+        })
+
+        }).catch(err => {
+            console.log('Błąd', err);
+        });
+
+
         return (
         <form>
             <div><strong>Question: </strong> {this.state.question}</div>
@@ -55,6 +71,15 @@ class OwnACar extends React.Component {
         )
     }
 }
+
+
+
+
+
+
+
+
+
 
 
 document.addEventListener('DOMContentLoaded', function(){
