@@ -27,7 +27,6 @@ class App extends React.Component {
             firstQvisibility: true
         })
     };
-
 }
 
 class OwnACar extends React.Component {
@@ -39,7 +38,6 @@ class OwnACar extends React.Component {
             answer2: null,
             currentVisibility: true,
             nextVisibility: false,
-
         }
     }
     render() {
@@ -58,7 +56,9 @@ class OwnACar extends React.Component {
                     <input type="radio" name="choose" onChange={this.handleChange2}/> {this.state.answer2}
                 </label>
             </form>
-            <div style={{display:nextDisplay}}> cos</div>
+            <div style={{display:nextDisplay}}>
+                <CarModel/>
+            </div>
         </div>
         )
     }
@@ -91,6 +91,73 @@ class OwnACar extends React.Component {
             console.log('Błąd', err);
         });
 
+    }
+}
+
+class CarModel extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            question: null,
+            text: '',
+            nextVisibility: false
+        }
+    }
+
+    render() {
+        let nextDisplay = (this.state.nextVisibility) ? 'block' : 'none';
+
+
+        return (
+            <div>
+                <form onSubmit={this.handleSubmit}>
+                <div><strong>Question: </strong> {this.state.question}</div>
+                <br/>
+                <input type="text" value={this.state.text} onChange={this.handleChangeText}/>
+                <input type="submit" value="next"/>
+                </form>
+                <div style={{display: nextDisplay}}>cos</div>
+            </div>
+        )
+    }
+
+    handleChangeText = (e) => {
+        this.setState({
+            text: e.target.value,
+        })
+    };
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+
+        fetch('http://localhost:3000/input2data').then(resp => {
+            if (resp.ok) {
+                return resp.json();
+            } else
+                throw new Error('Błąd sieci!')
+        }).then(data => {
+            this.setState({
+                text: data.answers[0],
+                nextVisibility: true
+            })
+        }).catch(err => {
+            console.log('Błąd', err);
+        });
+    };
+
+    componentDidMount() {
+        fetch('http://localhost:3000/input2data').then(resp => {
+            if (resp.ok) {
+                return resp.json();
+            } else
+                throw new Error('Błąd sieci!')
+        }).then(data => {
+            this.setState({
+                question: data.question,
+            })
+        }).catch(err => {
+            console.log('Błąd', err);
+        });
     }
 }
 

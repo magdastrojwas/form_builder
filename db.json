@@ -3,5 +3,9 @@
   "question": "Do you own a car?",
   "answer1": "yes",
   "answer2": "no"
+  },
+  "input2data": {
+    "question": "What is your car's model?",
+    "answers": ["Ford", "Opel", "Kia"]
   }
 }

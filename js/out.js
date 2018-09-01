@@ -9462,7 +9462,6 @@ var OwnACar = function (_React$Component2) {
             answer2: null,
             currentVisibility: true,
             nextVisibility: false
-
         };
         return _this2;
     }
@@ -9509,7 +9508,7 @@ var OwnACar = function (_React$Component2) {
                 _react2.default.createElement(
                     'div',
                     { style: { display: nextDisplay } },
-                    ' cos'
+                    _react2.default.createElement(CarModel, null)
                 )
             );
         }
@@ -9535,6 +9534,100 @@ var OwnACar = function (_React$Component2) {
     }]);
 
     return OwnACar;
+}(_react2.default.Component);
+
+var CarModel = function (_React$Component3) {
+    _inherits(CarModel, _React$Component3);
+
+    function CarModel(props) {
+        _classCallCheck(this, CarModel);
+
+        var _this4 = _possibleConstructorReturn(this, (CarModel.__proto__ || Object.getPrototypeOf(CarModel)).call(this, props));
+
+        _this4.handleChangeText = function (e) {
+            _this4.setState({
+                text: e.target.value
+            });
+        };
+
+        _this4.handleSubmit = function (e) {
+            e.preventDefault();
+
+            fetch('http://localhost:3000/input2data').then(function (resp) {
+                if (resp.ok) {
+                    return resp.json();
+                } else throw new Error('Błąd sieci!');
+            }).then(function (data) {
+                _this4.setState({
+                    text: data.answers[0],
+                    nextVisibility: true
+                });
+            }).catch(function (err) {
+                console.log('Błąd', err);
+            });
+        };
+
+        _this4.state = {
+            question: null,
+            text: '',
+            nextVisibility: false
+        };
+        return _this4;
+    }
+
+    _createClass(CarModel, [{
+        key: 'render',
+        value: function render() {
+            var nextDisplay = this.state.nextVisibility ? 'block' : 'none';
+
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'form',
+                    { onSubmit: this.handleSubmit },
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement(
+                            'strong',
+                            null,
+                            'Question: '
+                        ),
+                        ' ',
+                        this.state.question
+                    ),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement('input', { type: 'text', value: this.state.text, onChange: this.handleChangeText }),
+                    _react2.default.createElement('input', { type: 'submit', value: 'next' })
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { style: { display: nextDisplay } },
+                    'cos'
+                )
+            );
+        }
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this5 = this;
+
+            fetch('http://localhost:3000/input2data').then(function (resp) {
+                if (resp.ok) {
+                    return resp.json();
+                } else throw new Error('Błąd sieci!');
+            }).then(function (data) {
+                _this5.setState({
+                    question: data.question
+                });
+            }).catch(function (err) {
+                console.log('Błąd', err);
+            });
+        }
+    }]);
+
+    return CarModel;
 }(_react2.default.Component);
 
 document.addEventListener('DOMContentLoaded', function () {
