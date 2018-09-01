@@ -1,6 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+const divStyle = {
+    border: "2px solid black",
+    margin: "20px",
+    width: "300px"
+};
 
 class App extends React.Component {
     constructor(props) {
@@ -46,7 +51,7 @@ class OwnACar extends React.Component {
 
         return (
         <div>
-            <form style={{display:currentDisplay}}>
+            <form style={{display:currentDisplay, width: "300px", border: "2px solid black", margin: "15px", padding:"15px"}}>
                 <div><strong>Question: </strong> {this.state.question}</div>
                 <br/>
                 <label>
@@ -110,13 +115,15 @@ class CarModel extends React.Component {
 
         return (
             <div>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit} style={{width: "300px", border: "2px solid black", margin: "15px", padding:"15px"}} >
                 <div><strong>Question: </strong> {this.state.question}</div>
                 <br/>
                 <input type="text" value={this.state.text} onChange={this.handleChangeText}/>
                 <input type="submit" value="next"/>
                 </form>
-                <div style={{display: nextDisplay}}>cos</div>
+                <div style={{display: nextDisplay}}>
+                    <NumberOfWheels/>
+                </div>
             </div>
         )
     }
@@ -161,11 +168,30 @@ class CarModel extends React.Component {
     }
 }
 
+class NumberOfWheels extends React.Component {
+    constructor (props) {
+        super(props);
+        this.state={
+            question: null,
+            nextVisibility: false
+        }
+    }
 
+    render () {
+        return (
+            <div>
+                <form style={{width: "300px", border: "2px solid black", margin: "15px", padding:"15px"}}>
+                    <div><strong>Question: </strong></div>
+                    <br/>
+                    <input type="number" onChange={this.handleChangeNumb}/>
+                    <input type="submit" value="next"/>
+                </form>
+            </div>
+        )
+    }
+}
 
-
-
-
+//model auta przekazać w propsie?
 
 
 

@@ -9390,6 +9390,12 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var divStyle = {
+    border: "2px solid black",
+    margin: "20px",
+    width: "300px"
+};
+
 var App = function (_React$Component) {
     _inherits(App, _React$Component);
 
@@ -9477,7 +9483,7 @@ var OwnACar = function (_React$Component2) {
                 null,
                 _react2.default.createElement(
                     'form',
-                    { style: { display: currentDisplay } },
+                    { style: { display: currentDisplay, width: "300px", border: "2px solid black", margin: "15px", padding: "15px" } },
                     _react2.default.createElement(
                         'div',
                         null,
@@ -9585,7 +9591,7 @@ var CarModel = function (_React$Component3) {
                 null,
                 _react2.default.createElement(
                     'form',
-                    { onSubmit: this.handleSubmit },
+                    { onSubmit: this.handleSubmit, style: { width: "300px", border: "2px solid black", margin: "15px", padding: "15px" } },
                     _react2.default.createElement(
                         'div',
                         null,
@@ -9604,7 +9610,7 @@ var CarModel = function (_React$Component3) {
                 _react2.default.createElement(
                     'div',
                     { style: { display: nextDisplay } },
-                    'cos'
+                    _react2.default.createElement(NumberOfWheels, null)
                 )
             );
         }
@@ -9629,6 +9635,53 @@ var CarModel = function (_React$Component3) {
 
     return CarModel;
 }(_react2.default.Component);
+
+var NumberOfWheels = function (_React$Component4) {
+    _inherits(NumberOfWheels, _React$Component4);
+
+    function NumberOfWheels(props) {
+        _classCallCheck(this, NumberOfWheels);
+
+        var _this6 = _possibleConstructorReturn(this, (NumberOfWheels.__proto__ || Object.getPrototypeOf(NumberOfWheels)).call(this, props));
+
+        _this6.state = {
+            question: null,
+            nextVisibility: false
+        };
+        return _this6;
+    }
+
+    _createClass(NumberOfWheels, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'form',
+                    { style: { width: "300px", border: "2px solid black", margin: "15px", padding: "15px" } },
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement(
+                            'strong',
+                            null,
+                            'Question: '
+                        )
+                    ),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement('input', { type: 'number', onChange: this.handleChangeNumb }),
+                    _react2.default.createElement('input', { type: 'submit', value: 'next' })
+                )
+            );
+        }
+    }]);
+
+    return NumberOfWheels;
+}(_react2.default.Component);
+
+//model auta przekazać w propsie?
+
 
 document.addEventListener('DOMContentLoaded', function () {
     _reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById('app'));

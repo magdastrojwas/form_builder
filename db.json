@@ -7,5 +7,8 @@
   "input2data": {
     "question": "What is your car's model?",
     "answers": ["Ford", "Opel", "Kia"]
+  },
+  "input3data": {
+    "question": "How many wheels on your car?"
   }
 }
