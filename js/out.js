@@ -9444,8 +9444,25 @@ var OwnACar = function (_React$Component2) {
 
         var _this2 = _possibleConstructorReturn(this, (OwnACar.__proto__ || Object.getPrototypeOf(OwnACar)).call(this, props));
 
+        _this2.handleChange1 = function () {
+            _this2.setState({
+                nextVisibility: true
+            });
+        };
+
+        _this2.handleChange2 = function () {
+            _this2.setState({
+                currentVisibility: false
+            });
+        };
+
         _this2.state = {
-            question: ''
+            question: null,
+            answer1: null,
+            answer2: null,
+            currentVisibility: true,
+            nextVisibility: false
+
         };
         return _this2;
     }
@@ -9453,49 +9470,67 @@ var OwnACar = function (_React$Component2) {
     _createClass(OwnACar, [{
         key: 'render',
         value: function render() {
+            var currentDisplay = this.state.currentVisibility ? 'block' : 'none';
+            var nextDisplay = this.state.nextVisibility ? 'block' : 'none';
+
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'form',
+                    { style: { display: currentDisplay } },
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement(
+                            'strong',
+                            null,
+                            'Question: '
+                        ),
+                        ' ',
+                        this.state.question
+                    ),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement(
+                        'label',
+                        null,
+                        _react2.default.createElement('input', { type: 'radio', name: 'choose', onChange: this.handleChange1 }),
+                        ' ',
+                        this.state.answer1
+                    ),
+                    _react2.default.createElement(
+                        'label',
+                        null,
+                        _react2.default.createElement('input', { type: 'radio', name: 'choose', onChange: this.handleChange2 }),
+                        ' ',
+                        this.state.answer2
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { style: { display: nextDisplay } },
+                    ' cos'
+                )
+            );
+        }
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
             var _this3 = this;
 
-            fetch('http://localhost:3000/questions').then(function (resp) {
+            fetch('http://localhost:3000/input1data').then(function (resp) {
                 if (resp.ok) {
                     return resp.json();
                 } else throw new Error('Błąd sieci!');
-            }).then(function (questions) {
-                console.log(questions);
+            }).then(function (data) {
                 _this3.setState({
-                    question: questions[0].guest
+                    question: data.question,
+                    answer1: data.answer1,
+                    answer2: data.answer2
                 });
             }).catch(function (err) {
                 console.log('Błąd', err);
             });
-
-            return _react2.default.createElement(
-                'form',
-                null,
-                _react2.default.createElement(
-                    'div',
-                    null,
-                    _react2.default.createElement(
-                        'strong',
-                        null,
-                        'Question: '
-                    ),
-                    ' ',
-                    this.state.question
-                ),
-                _react2.default.createElement('br', null),
-                _react2.default.createElement(
-                    'label',
-                    null,
-                    _react2.default.createElement('input', { type: 'radio' }),
-                    ' YES'
-                ),
-                _react2.default.createElement(
-                    'label',
-                    null,
-                    _react2.default.createElement('input', { type: 'radio' }),
-                    ' NO'
-                )
-            );
         }
     }]);
 

@@ -1,12 +1,7 @@
 {
-  "questions": [
-    {
-      "id": 1,
-      "quest": "Do you own a car?"
-    },
-    {
-      "id": 2,
-      "quest": "What is your car's model?"
-    }
-  ]
+  "input1data": {
+  "question": "Do you own a car?",
+  "answer1": "yes",
+  "answer2": "no"
+  }
 }
