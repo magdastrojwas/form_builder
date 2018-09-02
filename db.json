@@ -1,13 +1,30 @@
 {
   "input1data": {
-  "question": "Do you own a car?",
-  "answer1": "yes",
-  "answer2": "no"
+    "question": "Do you own a car?",
+    "answer1": "yes",
+    "answer2": "no"
   },
   "input2data": {
-    "question": "What is your car's model?",
-    "answers": ["Ford", "Opel", "Kia"]
+    "question": "What is your car's model?"
   },
+  "carModels": [
+    {
+      "id": 1,
+      "brand": "example"
+    },
+    {
+      "id": 2,
+      "brand": "mn "
+    },
+    {
+      "id": 3,
+      "brand": "toyota"
+    },
+    {
+      "id": 4,
+      "brand": "opel"
+    }
+  ],
   "input3data": {
     "question": "How many wheels on your car?"
   }

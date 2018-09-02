@@ -137,19 +137,23 @@ class CarModel extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
 
-        fetch('http://localhost:3000/input2data').then(resp => {
-            if (resp.ok) {
-                return resp.json();
-            } else
-                throw new Error('Błąd sieci!')
+        const newModel = {
+            id: null,
+            brand: this.state.text
+        };
+        console.log(newModel);
+
+        fetch('http://localhost:3000/carModels', {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify(newModel)
         }).then(data => {
             this.setState({
-                text: data.answers[0],
                 nextVisibility: true
             })
-        }).catch(err => {
-            console.log('Błąd', err);
-        });
+        })
     };
 
     componentDidMount() {
@@ -181,7 +185,7 @@ class NumberOfWheels extends React.Component {
         return (
             <div>
                 <form style={{width: "300px", border: "2px solid black", margin: "15px", padding:"15px"}}>
-                    <div><strong>Question: </strong></div>
+                    <div><strong>Question: </strong> </div>
                     <br/>
                     <input type="number" onChange={this.handleChangeNumb}/>
                     <input type="submit" value="next"/>
@@ -191,7 +195,7 @@ class NumberOfWheels extends React.Component {
     }
 }
 
-//model auta przekazać w propsie?
+
 
 
 

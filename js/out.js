@@ -9559,17 +9559,22 @@ var CarModel = function (_React$Component3) {
         _this4.handleSubmit = function (e) {
             e.preventDefault();
 
-            fetch('http://localhost:3000/input2data').then(function (resp) {
-                if (resp.ok) {
-                    return resp.json();
-                } else throw new Error('Błąd sieci!');
+            var newModel = {
+                id: null,
+                brand: _this4.state.text
+            };
+            console.log(newModel);
+
+            fetch('http://localhost:3000/carModels', {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                method: 'POST',
+                body: JSON.stringify(newModel)
             }).then(function (data) {
                 _this4.setState({
-                    text: data.answers[0],
                     nextVisibility: true
                 });
-            }).catch(function (err) {
-                console.log('Błąd', err);
             });
         };
 
@@ -9667,7 +9672,8 @@ var NumberOfWheels = function (_React$Component4) {
                             'strong',
                             null,
                             'Question: '
-                        )
+                        ),
+                        ' '
                     ),
                     _react2.default.createElement('br', null),
                     _react2.default.createElement('input', { type: 'number', onChange: this.handleChangeNumb }),
@@ -9679,9 +9685,6 @@ var NumberOfWheels = function (_React$Component4) {
 
     return NumberOfWheels;
 }(_react2.default.Component);
-
-//model auta przekazać w propsie?
-
 
 document.addEventListener('DOMContentLoaded', function () {
     _reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById('app'));
