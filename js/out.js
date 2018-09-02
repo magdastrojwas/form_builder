@@ -9563,7 +9563,6 @@ var CarModel = function (_React$Component3) {
                 id: null,
                 brand: _this4.state.text
             };
-            console.log(newModel);
 
             fetch('http://localhost:3000/carModels', {
                 headers: {
@@ -9649,9 +9648,22 @@ var NumberOfWheels = function (_React$Component4) {
 
         var _this6 = _possibleConstructorReturn(this, (NumberOfWheels.__proto__ || Object.getPrototypeOf(NumberOfWheels)).call(this, props));
 
+        _this6.handleChangeNumb = function (e) {
+            _this6.setState({
+                numberOfWheels: e.target.value
+            });
+            //fetch z nowym pytaniem zależnym od ilosci kół
+        };
+
+        _this6.handleSubmit = function (e) {
+            e.preventDefault();
+        };
+
         _this6.state = {
             question: null,
-            nextVisibility: false
+            numberOfWheels: null,
+            nextVisibility: false,
+            carModel: null
         };
         return _this6;
     }
@@ -9673,13 +9685,48 @@ var NumberOfWheels = function (_React$Component4) {
                             null,
                             'Question: '
                         ),
-                        ' '
+                        ' ',
+                        this.state.question,
+                        ' ',
+                        this.state.carModel,
+                        '?'
                     ),
                     _react2.default.createElement('br', null),
                     _react2.default.createElement('input', { type: 'number', onChange: this.handleChangeNumb }),
                     _react2.default.createElement('input', { type: 'submit', value: 'next' })
                 )
             );
+        }
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this7 = this;
+
+            fetch('http://localhost:3000/input3data').then(function (resp) {
+                if (resp.ok) {
+                    return resp.json();
+                } else throw new Error('Błąd sieci!');
+            }).then(function (data) {
+                _this7.setState({
+                    question: data.question
+                });
+            }).catch(function (err) {
+                console.log('Błąd', err);
+            });
+
+            fetch('http://localhost:3000/carModels').then(function (resp) {
+                //spróbowac z innym cyklem życia komponentu zeby juz miał ostatni indeks
+                if (resp.ok) {
+                    return resp.json();
+                } else throw new Error('Błąd sieci!');
+            }).then(function (models) {
+                console.log(models.length, models[models.length - 1].brand);
+                _this7.setState({
+                    carModel: models[models.length - 1].brand
+                });
+            }).catch(function (err) {
+                console.log('Błąd', err);
+            });
         }
     }]);
 

@@ -141,7 +141,6 @@ class CarModel extends React.Component {
             id: null,
             brand: this.state.text
         };
-        console.log(newModel);
 
         fetch('http://localhost:3000/carModels', {
             headers: {
@@ -177,7 +176,9 @@ class NumberOfWheels extends React.Component {
         super(props);
         this.state={
             question: null,
-            nextVisibility: false
+            numberOfWheels: null,
+            nextVisibility: false,
+            carModel: null
         }
     }
 
@@ -185,7 +186,7 @@ class NumberOfWheels extends React.Component {
         return (
             <div>
                 <form style={{width: "300px", border: "2px solid black", margin: "15px", padding:"15px"}}>
-                    <div><strong>Question: </strong> </div>
+                    <div><strong>Question: </strong> {this.state.question} {this.state.carModel}?</div>
                     <br/>
                     <input type="number" onChange={this.handleChangeNumb}/>
                     <input type="submit" value="next"/>
@@ -193,9 +194,49 @@ class NumberOfWheels extends React.Component {
             </div>
         )
     }
+
+
+    handleChangeNumb = (e) => {
+        this.setState({
+            numberOfWheels: e.target.value
+        })
+        //fetch z nowym pytaniem zależnym od ilosci kół
+    };
+
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+    };
+
+    componentDidMount() {
+        fetch('http://localhost:3000/input3data').then(resp => {
+            if (resp.ok) {
+                return resp.json();
+            } else
+                throw new Error('Błąd sieci!')
+        }).then(data => {
+            this.setState({
+                question: data.question,
+            })
+        }).catch(err => {
+            console.log('Błąd', err);
+        });
+
+        fetch('http://localhost:3000/carModels').then(resp => { //spróbowac z innym cyklem życia komponentu zeby juz miał ostatni indeks
+            if (resp.ok) {
+                return resp.json();
+            } else
+                throw new Error('Błąd sieci!')
+        }).then(models => {
+            console.log(models.length, models[models.length-1].brand);
+            this.setState({
+                carModel: models[models.length-1].brand
+            })
+        }).catch(err => {
+            console.log('Błąd', err);
+        });
+    }
 }
-
-
 
 
 
