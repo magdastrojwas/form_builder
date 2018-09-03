@@ -178,31 +178,34 @@ class NumberOfWheels extends React.Component {
         this.state={
             question: null,
             numberOfWheels: null,
-            nextVisibility: false,
+            visibility4: false,
+            visibilityBigger: false,
+            visibilitySmaller: false,
             carModel: null
         }
     }
 
     render () {
-        let nextDisplay = (this.state.nextVisibility) ? 'block' : 'none';
-
+        let next4Display = (this.state.visibility4) ? 'block' : 'none';
+        let next5Display = (this.state.visibilityBigger) ? 'block' : 'none';
+        let next3Display = (this.state.visibilitySmaller) ? 'block' : 'none';
 
         return (
             <div>
-                <form style={{width: "300px", border: "2px solid black", margin: "15px", padding:"15px"}}>
+                <form onSubmit={this.handleSubmit} style={{width: "300px", border: "2px solid black", margin: "15px", padding:"15px"}}>
                     <div><strong>Question: </strong> {this.state.question} {this.state.carModel}?</div>
                     <br/>
                     <input type="number" onChange={this.handleChangeNumb}/>
                     <input type="submit" value="next"/>
                 </form>
-                <div style={{display: nextDisplay}}>
-                    <LegalCar/>
-                </div>
-                <div style={{display: nextDisplay}}>
-                    <Roadworthy/>
-                </div>
-                <div style={{display: nextDisplay}}>
+                <div style={{display: next4Display}}>
                     <AgeOfCar/>
+                </div>
+                <div style={{display:next5Display}}>
+                    <LegalCar/>;
+                </div>
+                <div style={{display: next3Display}}>
+                    <Roadworthy/>;
                 </div>
             </div>
         )
@@ -218,6 +221,17 @@ class NumberOfWheels extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
+
+        if(this.state.numberOfWheels == 4) {
+            this.setState({visibility4: true});
+            return;
+        } else if (this.state.numberOfWheels > 4) {
+            this.setState({visibilityBigger: true});
+            return;
+        } else if (this.state.numberOfWheels < 4){
+            this.setState({visibilitySmaller: true});
+            return;
+        }
     };
 
     componentDidMount() {
@@ -350,7 +364,7 @@ class AgeOfCar extends React.Component {
         return (
             <div>
                 <form style={{width: "300px", border: "2px solid black", margin: "15px", padding:"15px"}}>
-                    <div><strong>Question: </strong> {this.state.question}?</div>
+                    <div><strong>Question: </strong> {this.state.question}</div>
                     <br/>
                     <input type="number"/>
                     <input type="submit" value="next"/>

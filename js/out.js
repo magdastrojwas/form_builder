@@ -9655,12 +9655,25 @@ var NumberOfWheels = function (_React$Component4) {
 
         _this6.handleSubmit = function (e) {
             e.preventDefault();
+
+            if (_this6.state.numberOfWheels == 4) {
+                _this6.setState({ visibility4: true });
+                return;
+            } else if (_this6.state.numberOfWheels > 4) {
+                _this6.setState({ visibilityBigger: true });
+                return;
+            } else if (_this6.state.numberOfWheels < 4) {
+                _this6.setState({ visibilitySmaller: true });
+                return;
+            }
         };
 
         _this6.state = {
             question: null,
             numberOfWheels: null,
-            nextVisibility: false,
+            visibility4: false,
+            visibilityBigger: false,
+            visibilitySmaller: false,
             carModel: null
         };
         return _this6;
@@ -9669,14 +9682,16 @@ var NumberOfWheels = function (_React$Component4) {
     _createClass(NumberOfWheels, [{
         key: 'render',
         value: function render() {
-            var nextDisplay = this.state.nextVisibility ? 'block' : 'none';
+            var next4Display = this.state.visibility4 ? 'block' : 'none';
+            var next5Display = this.state.visibilityBigger ? 'block' : 'none';
+            var next3Display = this.state.visibilitySmaller ? 'block' : 'none';
 
             return _react2.default.createElement(
                 'div',
                 null,
                 _react2.default.createElement(
                     'form',
-                    { style: { width: "300px", border: "2px solid black", margin: "15px", padding: "15px" } },
+                    { onSubmit: this.handleSubmit, style: { width: "300px", border: "2px solid black", margin: "15px", padding: "15px" } },
                     _react2.default.createElement(
                         'div',
                         null,
@@ -9697,18 +9712,20 @@ var NumberOfWheels = function (_React$Component4) {
                 ),
                 _react2.default.createElement(
                     'div',
-                    { style: { display: nextDisplay } },
-                    _react2.default.createElement(LegalCar, null)
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { style: { display: nextDisplay } },
-                    _react2.default.createElement(Roadworthy, null)
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { style: { display: nextDisplay } },
+                    { style: { display: next4Display } },
                     _react2.default.createElement(AgeOfCar, null)
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { style: { display: next5Display } },
+                    _react2.default.createElement(LegalCar, null),
+                    ';'
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { style: { display: next3Display } },
+                    _react2.default.createElement(Roadworthy, null),
+                    ';'
                 )
             );
         }
@@ -9934,8 +9951,7 @@ var AgeOfCar = function (_React$Component7) {
                             'Question: '
                         ),
                         ' ',
-                        this.state.question,
-                        '?'
+                        this.state.question
                     ),
                     _react2.default.createElement('br', null),
                     _react2.default.createElement('input', { type: 'number' }),
