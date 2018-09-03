@@ -9718,14 +9718,12 @@ var NumberOfWheels = function (_React$Component4) {
                 _react2.default.createElement(
                     'div',
                     { style: { display: next5Display } },
-                    _react2.default.createElement(LegalCar, null),
-                    ';'
+                    _react2.default.createElement(LegalCar, null)
                 ),
                 _react2.default.createElement(
                     'div',
                     { style: { display: next3Display } },
-                    _react2.default.createElement(Roadworthy, null),
-                    ';'
+                    _react2.default.createElement(Roadworthy, null)
                 )
             );
         }

@@ -202,10 +202,10 @@ class NumberOfWheels extends React.Component {
                     <AgeOfCar/>
                 </div>
                 <div style={{display:next5Display}}>
-                    <LegalCar/>;
+                    <LegalCar/>
                 </div>
                 <div style={{display: next3Display}}>
-                    <Roadworthy/>;
+                    <Roadworthy/>
                 </div>
             </div>
         )

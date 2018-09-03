@@ -14,111 +14,15 @@
     },
     {
       "id": 2,
-      "brand": "volkswagen"
+      "brand": "volvo"
     },
     {
       "id": 3,
-      "brand": "bmw"
+      "brand": "fiat"
     },
     {
       "id": 4,
-      "brand": "peugeot"
-    },
-    {
-      "id": 5,
-      "brand": "vf"
-    },
-    {
-      "id": 6,
-      "brand": "rty"
-    },
-    {
-      "id": 7,
-      "brand": "ee"
-    },
-    {
-      "id": 8,
-      "brand": "bb"
-    },
-    {
-      "id": 9,
-      "brand": "gg"
-    },
-    {
-      "id": 10,
-      "brand": "nb"
-    },
-    {
-      "id": 11,
-      "brand": "bn"
-    },
-    {
-      "id": 12,
-      "brand": "bb"
-    },
-    {
-      "id": 13,
-      "brand": "nmb"
-    },
-    {
-      "id": 14,
-      "brand": "nmnm"
-    },
-    {
-      "id": 15,
-      "brand": "cv"
-    },
-    {
-      "id": 16,
-      "brand": "sz"
-    },
-    {
-      "id": 17,
-      "brand": "saab"
-    },
-    {
-      "id": 18,
-      "brand": "vc"
-    },
-    {
-      "id": 19,
-      "brand": "man"
-    },
-    {
-      "id": 20,
-      "brand": "wer"
-    },
-    {
-      "id": 21,
-      "brand": "kol"
-    },
-    {
-      "id": 22,
-      "brand": "car"
-    },
-    {
-      "id": 23,
-      "brand": "sdf"
-    },
-    {
-      "id": 24,
-      "brand": "xcv"
-    },
-    {
-      "id": 25,
-      "brand": "jt"
-    },
-    {
-      "id": 26,
-      "brand": "ytd"
-    },
-    {
-      "id": 27,
-      "brand": "mn"
-    },
-    {
-      "id": 28,
-      "brand": "kl"
+      "brand": "opel"
     }
   ],
   "input3data": {

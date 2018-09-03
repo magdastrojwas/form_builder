@@ -1,7 +1,6 @@
 {
-  "name": "bo",
+  "name": "form_builder",
   "version": "1.0.0",
-  "homepage": "https://magdastrojwas.github.io/civic_budget_app/",
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
@@ -29,10 +28,6 @@
     "babel-preset-stage-2": "^6.24.1",
     "css-loader": "^1.0.0",
     "file-loader": "^1.1.11",
-    "node-sass": "^4.9.2",
-    "sass-loader": "^7.1.0",
-    "style-loader": "^0.21.0",
-    "url-loader": "^1.1.1",
     "webpack": "^3.12.0",
     "webpack-dev-server": "^2.11.2"
   }
