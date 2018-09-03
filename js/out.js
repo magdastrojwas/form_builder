@@ -9390,12 +9390,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var divStyle = {
-    border: "2px solid black",
-    margin: "20px",
-    width: "300px"
-};
-
 var App = function (_React$Component) {
     _inherits(App, _React$Component);
 
@@ -9570,8 +9564,13 @@ var CarModel = function (_React$Component3) {
                 },
                 method: 'POST',
                 body: JSON.stringify(newModel)
+            }).then(function (resp) {
+                if (resp.ok) {
+                    return resp.json();
+                } else throw new Error('Błąd sieci!');
             }).then(function (data) {
                 _this4.setState({
+                    modelId: data.id,
                     nextVisibility: true
                 });
             });
@@ -9588,7 +9587,7 @@ var CarModel = function (_React$Component3) {
     _createClass(CarModel, [{
         key: 'render',
         value: function render() {
-            var nextDisplay = this.state.nextVisibility ? 'block' : 'none';
+            var nextDisplay = this.state.modelId ? _react2.default.createElement(NumberOfWheels, { model: this.state.modelId }) : '';
 
             return _react2.default.createElement(
                 'div',
@@ -9613,8 +9612,8 @@ var CarModel = function (_React$Component3) {
                 ),
                 _react2.default.createElement(
                     'div',
-                    { style: { display: nextDisplay } },
-                    _react2.default.createElement(NumberOfWheels, null)
+                    null,
+                    nextDisplay
                 )
             );
         }
@@ -9652,7 +9651,6 @@ var NumberOfWheels = function (_React$Component4) {
             _this6.setState({
                 numberOfWheels: e.target.value
             });
-            //fetch z nowym pytaniem zależnym od ilosci kół
         };
 
         _this6.handleSubmit = function (e) {
@@ -9671,6 +9669,8 @@ var NumberOfWheels = function (_React$Component4) {
     _createClass(NumberOfWheels, [{
         key: 'render',
         value: function render() {
+            var nextDisplay = this.state.nextVisibility ? 'block' : 'none';
+
             return _react2.default.createElement(
                 'div',
                 null,
@@ -9694,6 +9694,21 @@ var NumberOfWheels = function (_React$Component4) {
                     _react2.default.createElement('br', null),
                     _react2.default.createElement('input', { type: 'number', onChange: this.handleChangeNumb }),
                     _react2.default.createElement('input', { type: 'submit', value: 'next' })
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { style: { display: nextDisplay } },
+                    _react2.default.createElement(LegalCar, null)
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { style: { display: nextDisplay } },
+                    _react2.default.createElement(Roadworthy, null)
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { style: { display: nextDisplay } },
+                    _react2.default.createElement(AgeOfCar, null)
                 )
             );
         }
@@ -9714,15 +9729,13 @@ var NumberOfWheels = function (_React$Component4) {
                 console.log('Błąd', err);
             });
 
-            fetch('http://localhost:3000/carModels').then(function (resp) {
-                //spróbowac z innym cyklem życia komponentu zeby juz miał ostatni indeks
+            fetch('http://localhost:3000/carModels/' + this.props.model).then(function (resp) {
                 if (resp.ok) {
                     return resp.json();
                 } else throw new Error('Błąd sieci!');
-            }).then(function (models) {
-                console.log(models.length, models[models.length - 1].brand);
+            }).then(function (model) {
                 _this7.setState({
-                    carModel: models[models.length - 1].brand
+                    carModel: model.brand
                 });
             }).catch(function (err) {
                 console.log('Błąd', err);
@@ -9731,6 +9744,225 @@ var NumberOfWheels = function (_React$Component4) {
     }]);
 
     return NumberOfWheels;
+}(_react2.default.Component);
+
+var LegalCar = function (_React$Component5) {
+    _inherits(LegalCar, _React$Component5);
+
+    function LegalCar(props) {
+        _classCallCheck(this, LegalCar);
+
+        var _this8 = _possibleConstructorReturn(this, (LegalCar.__proto__ || Object.getPrototypeOf(LegalCar)).call(this, props));
+
+        _this8.state = {
+            question: null,
+            answer1: null,
+            answer2: null
+        };
+        return _this8;
+    }
+
+    _createClass(LegalCar, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'form',
+                    { style: { width: "300px", border: "2px solid black", margin: "15px", padding: "15px" } },
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement(
+                            'strong',
+                            null,
+                            'Question: '
+                        ),
+                        ' ',
+                        this.state.question
+                    ),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement(
+                        'label',
+                        null,
+                        _react2.default.createElement('input', { type: 'radio', name: 'choose' }),
+                        ' ',
+                        this.state.answer1
+                    ),
+                    _react2.default.createElement(
+                        'label',
+                        null,
+                        _react2.default.createElement('input', { type: 'radio', name: 'choose' }),
+                        ' ',
+                        this.state.answer2
+                    )
+                )
+            );
+        }
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this9 = this;
+
+            fetch('http://localhost:3000/input4data').then(function (resp) {
+                if (resp.ok) {
+                    return resp.json();
+                } else throw new Error('Błąd sieci!');
+            }).then(function (data) {
+                _this9.setState({
+                    question: data.question,
+                    answer1: data.answer1,
+                    answer2: data.answer2
+                });
+            }).catch(function (err) {
+                console.log('Błąd', err);
+            });
+        }
+    }]);
+
+    return LegalCar;
+}(_react2.default.Component);
+
+var Roadworthy = function (_React$Component6) {
+    _inherits(Roadworthy, _React$Component6);
+
+    function Roadworthy(props) {
+        _classCallCheck(this, Roadworthy);
+
+        var _this10 = _possibleConstructorReturn(this, (Roadworthy.__proto__ || Object.getPrototypeOf(Roadworthy)).call(this, props));
+
+        _this10.state = {
+            question: null,
+            answer1: null,
+            answer2: null
+        };
+        return _this10;
+    }
+
+    _createClass(Roadworthy, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'form',
+                    { style: { width: "300px", border: "2px solid black", margin: "15px", padding: "15px" } },
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement(
+                            'strong',
+                            null,
+                            'Question: '
+                        ),
+                        ' ',
+                        this.state.question
+                    ),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement(
+                        'label',
+                        null,
+                        _react2.default.createElement('input', { type: 'radio', name: 'choose' }),
+                        ' ',
+                        this.state.answer1
+                    ),
+                    _react2.default.createElement(
+                        'label',
+                        null,
+                        _react2.default.createElement('input', { type: 'radio', name: 'choose' }),
+                        ' ',
+                        this.state.answer2
+                    )
+                )
+            );
+        }
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this11 = this;
+
+            fetch('http://localhost:3000/input5data').then(function (resp) {
+                if (resp.ok) {
+                    return resp.json();
+                } else throw new Error('Błąd sieci!');
+            }).then(function (data) {
+                _this11.setState({
+                    question: data.question,
+                    answer1: data.answer1,
+                    answer2: data.answer2
+                });
+            }).catch(function (err) {
+                console.log('Błąd', err);
+            });
+        }
+    }]);
+
+    return Roadworthy;
+}(_react2.default.Component);
+
+var AgeOfCar = function (_React$Component7) {
+    _inherits(AgeOfCar, _React$Component7);
+
+    function AgeOfCar(props) {
+        _classCallCheck(this, AgeOfCar);
+
+        var _this12 = _possibleConstructorReturn(this, (AgeOfCar.__proto__ || Object.getPrototypeOf(AgeOfCar)).call(this, props));
+
+        _this12.state = {
+            question: null
+        };
+        return _this12;
+    }
+
+    _createClass(AgeOfCar, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'form',
+                    { style: { width: "300px", border: "2px solid black", margin: "15px", padding: "15px" } },
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement(
+                            'strong',
+                            null,
+                            'Question: '
+                        ),
+                        ' ',
+                        this.state.question,
+                        '?'
+                    ),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement('input', { type: 'number' }),
+                    _react2.default.createElement('input', { type: 'submit', value: 'next' })
+                )
+            );
+        }
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this13 = this;
+
+            fetch('http://localhost:3000/input6data').then(function (resp) {
+                if (resp.ok) {
+                    return resp.json();
+                } else throw new Error('Błąd sieci!');
+            }).then(function (data) {
+                _this13.setState({
+                    question: data.question
+                });
+            }).catch(function (err) {
+                console.log('Błąd', err);
+            });
+        }
+    }]);
+
+    return AgeOfCar;
 }(_react2.default.Component);
 
 document.addEventListener('DOMContentLoaded', function () {

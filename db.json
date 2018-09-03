@@ -10,66 +10,23 @@
   "carModels": [
     {
       "id": 1,
-      "brand": "example"
-    },
-    {
-      "id": 2,
-      "brand": "mn "
-    },
-    {
-      "id": 3,
-      "brand": "toyota"
-    },
-    {
-      "id": 4,
-      "brand": "renault"
-    },
-    {
-      "id": 5,
-      "brand": "mjb"
-    },
-    {
-      "id": 6,
-      "brand": "kia"
-    },
-    {
-      "id": 7,
-      "brand": "kia"
-    },
-    {
-      "id": 8,
-      "brand": "tyu"
-    },
-    {
-      "id": 9,
-      "brand": "tyu"
-    },
-    {
-      "id": 10,
-      "brand": "honda"
-    },
-    {
-      "id": 11,
-      "brand": "truk"
-    },
-    {
-      "id": 12,
-      "brand": "aygo"
-    },
-    {
-      "id": 13,
-      "brand": "hyundai"
-    },
-    {
-      "id": 14,
-      "brand": "boko"
-    },
-    {
-      "id": 15,
-      "brand": "astra"
+      "brand": "example brand"
     }
   ],
   "input3data": {
     "question": "How many wheels on your "
+  },
+  "input4data": {
+    "question": "Is your car legal?",
+    "answer1": "yes",
+    "answer2": "no"
+  },
+  "input5data": {
+    "question": "Is your car ok?",
+    "answer1": "yes",
+    "answer2": "no"
+  },
+  "input6data": {
+    "question": "How old is your car?"
   }
 }
